@@ -1,12 +1,15 @@
 package com.lyh.cn.passwordbook;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.lyh.cn.passwordbook.adapter.PwdAdapter;
 import com.lyh.cn.passwordbook.greendao.DaoMaster;
 import com.lyh.cn.passwordbook.greendao.DaoSession;
 import com.lyh.cn.passwordbook.greendao.PwdInfoDao;
@@ -19,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     private PwdInfoDao pwdInfoDao;
 
     private Button btn;
+
+    private RecyclerView recy;
+
+    private PwdAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +51,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         List<PwdInfo> list = pwdInfoDao.queryBuilder().limit(5).build().list();
-        for (int i = 0; i < list.size(); i++) {
-            Log.e("qwer", "search: " + list.get(i).toString());
-        }
+        recy = findViewById(R.id.recy);
+        recy.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new PwdAdapter(list);
+        recy.setAdapter(adapter);
     }
 
     private void addPwdInfo(){
