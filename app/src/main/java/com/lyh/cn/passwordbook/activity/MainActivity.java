@@ -1,4 +1,4 @@
-package com.lyh.cn.passwordbook;
+package com.lyh.cn.passwordbook.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.lyh.cn.passwordbook.R;
 import com.lyh.cn.passwordbook.adapter.PwdAdapter;
 import com.lyh.cn.passwordbook.greendao.DaoMaster;
 import com.lyh.cn.passwordbook.greendao.DaoSession;
