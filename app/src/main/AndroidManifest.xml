@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PasswordBook"
         tools:targetApi="31">
-        <activity android:name=".activity.EntryActivity"
+        <activity android:name=".activity.entry.EntryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +23,8 @@
         <activity
             android:name=".activity.MainActivity">
         </activity>
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.InitActivity"/>
+        <activity android:name=".activity.entry.LoginActivity"/>
+        <activity android:name=".activity.entry.InitActivity"/>
     </application>
 
 </manifest>
