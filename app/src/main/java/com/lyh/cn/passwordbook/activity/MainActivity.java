@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.lyh.cn.passwordbook.R;
 import com.lyh.cn.passwordbook.adapter.PwdAdapter;
+import com.lyh.cn.passwordbook.base.BaseActivity;
 import com.lyh.cn.passwordbook.greendao.DaoMaster;
 import com.lyh.cn.passwordbook.greendao.DaoSession;
 import com.lyh.cn.passwordbook.greendao.PwdInfoDao;
@@ -18,7 +19,7 @@ import com.lyh.cn.passwordbook.model.PwdInfo;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private DaoSession daoSession;
     private PwdInfoDao pwdInfoDao;
 

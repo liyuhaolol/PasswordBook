@@ -1,19 +1,25 @@
 package com.lyh.cn.passwordbook.adapter
 
-import android.widget.TextView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.lyh.cn.passwordbook.R
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.chad.library.adapter4.BaseQuickAdapter
+import com.lyh.cn.passwordbook.databinding.ItemPwdBinding
 import com.lyh.cn.passwordbook.model.PwdInfo
-import org.w3c.dom.Text
 
 class PwdAdapter (list:MutableList<PwdInfo>) :
-    BaseQuickAdapter<PwdInfo, BaseViewHolder>(R.layout.item_pwd,list){
+    BaseQuickAdapter<PwdInfo, PwdAdapter.PwdInfoVH>(list){
 
-    override fun convert(holder: BaseViewHolder, item: PwdInfo) {
-        var site:TextView = holder.getView(R.id.site)
-        var email:TextView = holder.getView(R.id.email);
-        site.text = item.webSiteName
-        email.text = item.email
+    class PwdInfoVH(val b:ItemPwdBinding):ViewHolder(b.root)
+
+    override fun onBindViewHolder(holder: PwdInfoVH, position: Int, item: PwdInfo?) {
+        holder.b.site.text = item!!.webSiteName
+        holder.b.email.text = item.email
     }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int): PwdInfoVH {
+        return PwdInfoVH(ItemPwdBinding.inflate(LayoutInflater.from(context),parent,false))
+    }
+
 }

@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'com.lyh.cn.passwordbook'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.lyh.cn.passwordbook"
-        minSdk 24
-        targetSdk 33
+        minSdk 27
+        targetSdk 34
         versionCode 1
         versionName "1.0.0"
     }
@@ -20,27 +20,52 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ndk {
+                //noinspection ChromeOsAbiSupport
+                abiFilters 'arm64-v8a','x86_64'
+            }
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
     greendao{
         schemaVersion 1
         daoPackage 'com.lyh.cn.passwordbook.greendao'
         targetGenDir 'src/main/java'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'org.greenrobot:greendao:3.3.0'
+    //权限框架
+    implementation "com.github.liyuhaolol:Permission:1.2.5"
     //上拉刷新,加头尾
-    implementation "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6"
+    implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.1.3"
     //通用的工具类
-    implementation "com.github.liyuhaolol:CommonUtils:1.3.9"
+    implementation "com.github.liyuhaolol:CommonUtils:1.4.8"
+}
+
+tasks.configureEach { task ->
+    if (task.name.matches("\\w*compile\\w*Kotlin")) {
+        task.dependsOn('greendao')
+    }
+    if (task.name.matches("\\w*kaptGenerateStubs\\w*Kotlin")) {
+        task.dependsOn('greendao')
+    }
+
+    if (task.name.matches("\\w*kapt\\w*Kotlin")) {
+        task.dependsOn('greendao')
+    }
 }
