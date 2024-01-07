@@ -16,8 +16,14 @@ import com.lyh.cn.passwordbook.greendao.DaoMaster;
 import com.lyh.cn.passwordbook.greendao.DaoSession;
 import com.lyh.cn.passwordbook.greendao.PwdInfoDao;
 import com.lyh.cn.passwordbook.model.PwdInfo;
+import com.lyh.cn.passwordbook.utils.AesGcmCipher;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 public class MainActivity extends BaseActivity {
     private DaoSession daoSession;
@@ -29,12 +35,16 @@ public class MainActivity extends BaseActivity {
 
     private PwdAdapter adapter;
 
+    private String key = "rkZOySD40htpnZPSxcxh/Ys6YJhgpZ18dc+AvbWVCmA=";
+    private String encrypt = "AAAAAAAAAAAAAAAAZz/SXag8CewnkrcusO/dkYxN2Dge/A==";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initDB();
         initView();
+        aesTest();
     }
 
     private void initDB(){
@@ -68,5 +78,11 @@ public class MainActivity extends BaseActivity {
         pwdInfo.setWebSiteName("百度");
         pwdInfo.setWebSiteUrl("https://www.baidu.com");
         pwdInfoDao.insert(pwdInfo);
+    }
+
+    private void aesTest(){
+        //Log.e("qwer", AesGcmCipher.createAesKey());
+        //Log.e("qwer", AesGcmCipher.doEncrypt("你好",key));
+        Log.e("qwer",AesGcmCipher.doDecrypt(encrypt,key));
     }
 }
