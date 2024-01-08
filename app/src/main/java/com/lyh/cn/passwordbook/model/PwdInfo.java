@@ -15,27 +15,27 @@ public class PwdInfo {
    private String webSiteUrl;
    @Property(nameInDb = "EMAIL")
    private String email;
-   @Property(nameInDb = "HASPHONE")
-   private Boolean hasPhone;
+   @Property(nameInDb = "PHONE")
+   private String phone;
    @Property(nameInDb = "PASSWORD")
    private String password;
    @Property(nameInDb = "REMARKS")
    private String remarks;
-   @Generated(hash = 678739742)
-   public PwdInfo(Long id, String webSiteName, String webSiteUrl, String email,
-           Boolean hasPhone, String password, String remarks) {
-       this.id = id;
-       this.webSiteName = webSiteName;
-       this.webSiteUrl = webSiteUrl;
-       this.email = email;
-       this.hasPhone = hasPhone;
-       this.password = password;
-       this.remarks = remarks;
-   }
-   @Generated(hash = 1050394560)
-   public PwdInfo() {
-   }
-   public Long getId() {
+   @Generated(hash = 794108925)
+public PwdInfo(Long id, String webSiteName, String webSiteUrl, String email,
+        String phone, String password, String remarks) {
+    this.id = id;
+    this.webSiteName = webSiteName;
+    this.webSiteUrl = webSiteUrl;
+    this.email = email;
+    this.phone = phone;
+    this.password = password;
+    this.remarks = remarks;
+}
+@Generated( hash = 1050394560)
+public PwdInfo() {
+}
+public Long getId() {
        return this.id;
    }
    public void setId(Long id) {
@@ -59,13 +59,16 @@ public class PwdInfo {
    public void setEmail(String email) {
        this.email = email;
    }
-   public Boolean getHasPhone() {
-       return this.hasPhone;
-   }
-   public void setHasPhone(Boolean hasPhone) {
-       this.hasPhone = hasPhone;
-   }
-   public String getPassword() {
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
        return this.password;
    }
    public void setPassword(String password) {

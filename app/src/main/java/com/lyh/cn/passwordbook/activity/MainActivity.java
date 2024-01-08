@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity {
     private void addPwdInfo(){
         PwdInfo pwdInfo = new PwdInfo();
         pwdInfo.setEmail("test@qq.com");
-        pwdInfo.setHasPhone(true);
+        pwdInfo.setPhone("17600575050");
         pwdInfo.setPassword("12345");
         pwdInfo.setRemarks("hello");
         pwdInfo.setWebSiteName("百度");

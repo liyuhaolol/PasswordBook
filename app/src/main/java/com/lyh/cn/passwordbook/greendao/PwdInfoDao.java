@@ -28,7 +28,7 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
         public final static Property WebSiteName = new Property(1, String.class, "webSiteName", false, "SITENAME");
         public final static Property WebSiteUrl = new Property(2, String.class, "webSiteUrl", false, "SITEURL");
         public final static Property Email = new Property(3, String.class, "email", false, "EMAIL");
-        public final static Property HasPhone = new Property(4, Boolean.class, "hasPhone", false, "HASPHONE");
+        public final static Property Phone = new Property(4, String.class, "phone", false, "PHONE");
         public final static Property Password = new Property(5, String.class, "password", false, "PASSWORD");
         public final static Property Remarks = new Property(6, String.class, "remarks", false, "REMARKS");
     }
@@ -50,7 +50,7 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
                 "\"SITENAME\" TEXT," + // 1: webSiteName
                 "\"SITEURL\" TEXT," + // 2: webSiteUrl
                 "\"EMAIL\" TEXT," + // 3: email
-                "\"HASPHONE\" INTEGER," + // 4: hasPhone
+                "\"PHONE\" TEXT," + // 4: phone
                 "\"PASSWORD\" TEXT," + // 5: password
                 "\"REMARKS\" TEXT);"); // 6: remarks
     }
@@ -85,9 +85,9 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
             stmt.bindString(4, email);
         }
  
-        Boolean hasPhone = entity.getHasPhone();
-        if (hasPhone != null) {
-            stmt.bindLong(5, hasPhone ? 1L: 0L);
+        String phone = entity.getPhone();
+        if (phone != null) {
+            stmt.bindString(5, phone);
         }
  
         String password = entity.getPassword();
@@ -125,9 +125,9 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
             stmt.bindString(4, email);
         }
  
-        Boolean hasPhone = entity.getHasPhone();
-        if (hasPhone != null) {
-            stmt.bindLong(5, hasPhone ? 1L: 0L);
+        String phone = entity.getPhone();
+        if (phone != null) {
+            stmt.bindString(5, phone);
         }
  
         String password = entity.getPassword();
@@ -153,7 +153,7 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // webSiteName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // webSiteUrl
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // email
-            cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0, // hasPhone
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // phone
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // password
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // remarks
         );
@@ -166,7 +166,7 @@ public class PwdInfoDao extends AbstractDao<PwdInfo, Long> {
         entity.setWebSiteName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setWebSiteUrl(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setEmail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setHasPhone(cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0);
+        entity.setPhone(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setPassword(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setRemarks(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
