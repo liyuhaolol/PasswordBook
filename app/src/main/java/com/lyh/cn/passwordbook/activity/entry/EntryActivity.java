@@ -19,7 +19,7 @@ public class EntryActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TranslucentUtils.setTranslucentBoth(getWindow());
-/*        if (!MySpUtils.getFirstInit(this)){
+        if (MySpUtils.getFirstInit(this)){
             //初次启动，显示配置页面
             Intent intent = new Intent(this, InitActivity.class);
             startActivity(intent);
@@ -27,9 +27,9 @@ public class EntryActivity extends BaseActivity {
             //去登录页
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }*/
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        }
+/*        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);*/
         finish();
     }
 }

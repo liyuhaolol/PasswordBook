@@ -32,7 +32,7 @@ public PwdInfo(Long id, String webSiteName, String webSiteUrl, String email,
     this.password = password;
     this.remarks = remarks;
 }
-@Generated( hash = 1050394560)
+@Generated(hash = 1050394560)
 public PwdInfo() {
 }
 public Long getId() {
