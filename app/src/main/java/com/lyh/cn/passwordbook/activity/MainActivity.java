@@ -81,7 +81,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void aesTest(){
-        //Log.e("qwer", AesGcmCipher.createAesKey());
+        Log.e("qwer", AesGcmCipher.createAesKey());
         //Log.e("qwer", AesGcmCipher.doEncrypt("你好",key));
         Log.e("qwer",AesGcmCipher.doDecrypt(encrypt,key));
     }

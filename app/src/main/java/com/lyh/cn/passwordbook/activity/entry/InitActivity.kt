@@ -9,6 +9,8 @@ import com.lyh.cn.passwordbook.databinding.ActivityInitBinding
 import com.lyh.cn.passwordbook.fragment.entry.FingerprintFragment
 import com.lyh.cn.passwordbook.fragment.entry.PasswordFragment
 import com.lyh.cn.passwordbook.fragment.entry.UrlFragment
+import spa.lyh.cn.fingerprintutils.FingerprintVerifyManager
+import spa.lyh.cn.fingerprintutils.fp.IFingerprint
 
 class InitActivity:BaseActivity() {
     private lateinit var b:ActivityInitBinding
@@ -30,7 +32,10 @@ class InitActivity:BaseActivity() {
         //判断列表是否要加入生物识别的部分
         fragmentList.add(urlFragment)
         fragmentList.add(passwordFragment)
-        fragmentList.add(fingerprintFragment)
+        val type = FingerprintVerifyManager.canAuthenticate(this, false)
+        if (type == IFingerprint.CAN_AUTHENTICATE){
+            fragmentList.add(fingerprintFragment)
+        }
         fragmentPagerAdapter = object : FragmentStateAdapter(this){
             override fun getItemCount(): Int {
                 return fragmentList.size
@@ -48,5 +53,9 @@ class InitActivity:BaseActivity() {
     //调整页数
     fun changePage(index:Int){
         b.vp.currentItem = index
+    }
+
+    fun getFragmentSize():Int{
+        return fragmentList.size
     }
 }

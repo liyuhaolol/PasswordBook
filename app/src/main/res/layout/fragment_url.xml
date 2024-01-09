@@ -2,6 +2,80 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_24"
+            android:text="请输入已有密钥或者生成一个密钥，密钥请妥善保存后,本密钥不可随意乱写否则App无法使用"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/key"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="12sp"/>
+            <Button
+                android:id="@+id/gen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="生成"/>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/use_url"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="使用网络资源同步"/>
+            <Button
+                android:id="@+id/use_local"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="加载本地文件"/>
+        </RelativeLayout>
+        <LinearLayout
+            android:id="@+id/web_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_24"
+                android:text="请输入同步数据资源链接，加密资源需要使用上面的密钥加密，否则无法校验通过。初次使用可以不填"/>
+            <EditText
+                android:id="@+id/data_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/local_area"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_24"
+                android:text="请选择本地加密文件，加密资源需要使用上面的密钥加密，否则无法校验通过。初次使用可以不填"/>
+            <EditText
+                android:id="@+id/data_local"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,14 +90,14 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/skip"
-            android:background="#bababa"/>
+            android:background="@color/gray_ba"/>
         <TextView
             android:layout_width="90dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="@string/finish"
+            android:text="下一步"
             android:layout_alignParentRight="true"
-            android:background="#bababa"/>
+            android:background="@color/gray_ba"/>
     </RelativeLayout>
 
 </RelativeLayout>
