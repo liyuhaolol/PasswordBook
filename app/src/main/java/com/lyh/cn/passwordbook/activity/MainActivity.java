@@ -1,14 +1,25 @@
 package com.lyh.cn.passwordbook.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.ActivityResultRegistry;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.chad.library.adapter4.BaseQuickAdapter;
 import com.lyh.cn.passwordbook.R;
 import com.lyh.cn.passwordbook.adapter.PwdAdapter;
 import com.lyh.cn.passwordbook.base.BaseActivity;
@@ -19,6 +30,7 @@ import com.lyh.cn.passwordbook.model.PwdInfo;
 import com.lyh.cn.passwordbook.utils.AesGcmCipher;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.crypto.Cipher;
@@ -35,8 +47,15 @@ public class MainActivity extends BaseActivity {
 
     private PwdAdapter adapter;
 
+    private List<PwdInfo> list;
+
     private String key = "rkZOySD40htpnZPSxcxh/Ys6YJhgpZ18dc+AvbWVCmA=";
     private String encrypt = "AAAAAAAAAAAAAAAAZz/SXag8CewnkrcusO/dkYxN2Dge/A==";
+
+    private ActivityResultLauncher<Intent> launcher;
+
+    public final static int CHANGE = 110;//修改已有数据
+    public final static int ADD = 120;//添加数据
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +63,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initDB();
         initView();
-        aesTest();
     }
 
     private void initDB(){
@@ -62,26 +80,58 @@ public class MainActivity extends BaseActivity {
                 addPwdInfo();
             }
         });
-        List<PwdInfo> list = pwdInfoDao.queryBuilder().limit(5).build().list();
+        list = new ArrayList<>();
+        initList();
         recy = findViewById(R.id.recy);
         recy.setLayoutManager(new LinearLayoutManager(this));
         adapter = new PwdAdapter(list);
         recy.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener<PwdInfo>() {
+            @Override
+            public void onClick(@NonNull BaseQuickAdapter<PwdInfo, ?> baseQuickAdapter, @NonNull View view, int i) {
+                Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                launcher.launch(intent);
+            }
+        });
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result != null){
+                            switch (result.getResultCode()){
+                                case ADD:
+                                    initList();
+                                    adapter.notifyDataSetChanged();
+                                    break;
+                                case CHANGE:
+                                    break;
+                            }
+                        }
+                    }
+                });
     }
 
     private void addPwdInfo(){
-        PwdInfo pwdInfo = new PwdInfo();
+/*        PwdInfo pwdInfo = new PwdInfo();
         pwdInfo.setEmail("test@qq.com");
         pwdInfo.setPhone("17600575050");
         pwdInfo.setPassword("12345");
         pwdInfo.setRemarks("hello");
         pwdInfo.setWebSiteName("百度");
         pwdInfo.setWebSiteUrl("https://www.baidu.com");
-        pwdInfoDao.insert(pwdInfo);
+        pwdInfoDao.insert(pwdInfo);*/
+        Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+        launcher.launch(intent);
+    }
+
+    private void initList(){
+        list.clear();
+        list.addAll(pwdInfoDao.queryBuilder().limit(5).build().list());
     }
 
     private void aesTest(){
-        Log.e("qwer", AesGcmCipher.createAesKey());
+        //Log.e("qwer", AesGcmCipher.createAesKey());
         //Log.e("qwer", AesGcmCipher.doEncrypt("你好",key));
         Log.e("qwer",AesGcmCipher.doDecrypt(encrypt,key));
     }

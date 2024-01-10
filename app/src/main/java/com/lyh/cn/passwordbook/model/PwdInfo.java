@@ -1,12 +1,15 @@
 package com.lyh.cn.passwordbook.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class PwdInfo {
+public class PwdInfo implements Parcelable {
    @Id
    private Long id;
    @Property(nameInDb = "SITENAME")
@@ -21,9 +24,11 @@ public class PwdInfo {
    private String password;
    @Property(nameInDb = "REMARKS")
    private String remarks;
-   @Generated(hash = 794108925)
+   @Property(nameInDb = "USERNAME")
+   private String userName;
+   @Generated(hash = 2031684303)
 public PwdInfo(Long id, String webSiteName, String webSiteUrl, String email,
-        String phone, String password, String remarks) {
+        String phone, String password, String remarks, String userName) {
     this.id = id;
     this.webSiteName = webSiteName;
     this.webSiteUrl = webSiteUrl;
@@ -31,11 +36,61 @@ public PwdInfo(Long id, String webSiteName, String webSiteUrl, String email,
     this.phone = phone;
     this.password = password;
     this.remarks = remarks;
+    this.userName = userName;
 }
 @Generated(hash = 1050394560)
 public PwdInfo() {
 }
-public Long getId() {
+    protected PwdInfo(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        webSiteName = in.readString();
+        webSiteUrl = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        password = in.readString();
+        remarks = in.readString();
+        userName = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        dest.writeString(webSiteName);
+        dest.writeString(webSiteUrl);
+        dest.writeString(email);
+        dest.writeString(phone);
+        dest.writeString(password);
+        dest.writeString(remarks);
+        dest.writeString(userName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PwdInfo> CREATOR = new Creator<PwdInfo>() {
+        @Override
+        public PwdInfo createFromParcel(Parcel in) {
+            return new PwdInfo(in);
+        }
+
+        @Override
+        public PwdInfo[] newArray(int size) {
+            return new PwdInfo[size];
+        }
+    };
+
+    public Long getId() {
        return this.id;
    }
    public void setId(Long id) {
@@ -80,4 +135,11 @@ public Long getId() {
    public void setRemarks(String remarks) {
        this.remarks = remarks;
    }
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 }
