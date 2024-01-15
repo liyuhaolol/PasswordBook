@@ -80,6 +80,14 @@ public class MainActivity extends BaseActivity {
                 addPwdInfo();
             }
         });
+        findViewById(R.id.delete).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pwdInfoDao.deleteAll();
+                initList();
+                adapter.notifyDataSetChanged();
+            }
+        });
         list = new ArrayList<>();
         initList();
         recy = findViewById(R.id.recy);
@@ -90,6 +98,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(@NonNull BaseQuickAdapter<PwdInfo, ?> baseQuickAdapter, @NonNull View view, int i) {
                 Intent intent = new Intent(MainActivity.this,DetailActivity.class);
+                intent.putExtra("index",i);
+                intent.putExtra("pwdInfo",list.get(i));
                 launcher.launch(intent);
             }
         });
@@ -105,6 +115,23 @@ public class MainActivity extends BaseActivity {
                                     adapter.notifyDataSetChanged();
                                     break;
                                 case CHANGE:
+                                    if (result.getData() != null){
+                                        int index = result.getData().getIntExtra("index",-1);
+                                        if (index >= 0){
+                                            PwdInfo pwd = result.getData().getParcelableExtra("pwdInfo");
+                                            if (pwd != null){
+                                                list.get(index).setId(pwd.getId());
+                                                list.get(index).setWebSiteName(pwd.getWebSiteName());
+                                                list.get(index).setWebSiteUrl(pwd.getWebSiteUrl());
+                                                list.get(index).setEmail(pwd.getEmail());
+                                                list.get(index).setPhone(pwd.getPhone());
+                                                list.get(index).setUserName(pwd.getUserName());
+                                                list.get(index).setPassword(pwd.getPassword());
+                                                list.get(index).setRemarks(pwd.getRemarks());
+                                                adapter.notifyItemChanged(index);
+                                            }
+                                        }
+                                    }
                                     break;
                             }
                         }

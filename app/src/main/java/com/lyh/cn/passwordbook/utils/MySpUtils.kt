@@ -7,6 +7,7 @@ object MySpUtils {
     private val firstInit = "init"
     private val aesKey = "aesKey"
     private val pwd = "pwd"
+    private val version = "version"
 
     @JvmStatic
     fun getFirstInit(context: Context):Boolean{
@@ -36,5 +37,15 @@ object MySpUtils {
     @JvmStatic
     fun setPwd(context: Context,key:String){
         SPUtils.putString(pwd,key,context)
+    }
+
+    @JvmStatic
+    fun getVersion(context: Context):String{
+        return SPUtils.getString(version,"",context)
+    }
+
+    @JvmStatic
+    fun setVersion(context: Context,ver:String){
+        SPUtils.putString(version,ver,context)
     }
 }
