@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("kotlin-kapt")//kotlin databinding require kotlin-kapt
     id ("org.greenrobot.greendao")
 }
 
@@ -47,6 +48,19 @@ android {
 
     buildFeatures {
         viewBinding = true
+        dataBinding = true
+    }
+}
+
+tasks.configureEach {
+    if (name.matches(Regex("\\w*compile\\w*Kotlin"))){
+        dependsOn("greendao")
+    }
+    if (name.matches(Regex("\\w*kaptGenerateStubs\\w*Kotlin"))) {
+        dependsOn("greendao")
+    }
+    if (name.matches(Regex("\\w*kapt\\w*Kotlin"))) {
+        dependsOn("greendao")
     }
 }
 
@@ -67,17 +81,5 @@ dependencies {
     implementation (libs.fastjson2)
     //指纹工具
     implementation (libs.fingerprintutils)
-}
-
-tasks.configureEach {
-    if (name.matches(Regex("\\w*compile\\w*Kotlin"))){
-        dependsOn("greendao")
-    }
-    if (name.matches(Regex("\\w*kaptGenerateStubs\\w*Kotlin"))) {
-        dependsOn("greendao")
-    }
-    if (name.matches(Regex("\\w*kapt\\w*Kotlin"))) {
-        dependsOn("greendao")
-    }
 }
 

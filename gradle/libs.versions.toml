@@ -8,7 +8,7 @@ fastjson2 = "2.0.45.android4"
 fingerprintutils = "1.0.4"
 greendao = "3.3.0"
 greendaoGradlePlugin = "3.3.1"
-kotlin = "1.9.20"
+kotlin = "1.9.23"
 material = "1.11.0"
 permission = "1.2.6"
 

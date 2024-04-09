@@ -40,6 +40,9 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import spa.lyh.cn.lib_utils.translucent.BarUtils;
+import spa.lyh.cn.lib_utils.translucent.TranslucentUtils;
+
 public class MainActivity extends BaseActivity {
     private DaoSession daoSession;
     private PwdInfoDao pwdInfoDao;
@@ -64,6 +67,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TranslucentUtils.setTranslucentBoth(getWindow());
         initDB();
         initView();
     }
